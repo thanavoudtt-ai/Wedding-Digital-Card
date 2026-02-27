@@ -47,7 +47,6 @@
         .section-title { color: var(--primary-pink); font-weight: 700; font-size: 1rem; margin-bottom: 10px; display: block; }
         .agenda-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
 
-        /* Family Grid Styles */
         .family-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left; }
         .family-list { padding: 0; margin: 0; list-style: none; font-size: 0.8rem; }
         .family-list li { margin-bottom: 4px; border-left: 2px solid var(--primary-pink); padding-left: 6px; color: #333; }
@@ -56,23 +55,44 @@
         
         .rsvp-form input, .rsvp-form textarea { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 12px; border: 1px solid var(--border-glass); background: rgba(255,255,255,0.5); outline: none; font-size: 16px; }
         .submit-btn { width: 100%; background: var(--primary-pink); color: white; padding: 15px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; }
-        .copy-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 5px 10px; border-radius: 8px; font-size: 0.7rem; cursor: pointer; margin-top: 5px; }
+        .copy-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 5px 10px; border-radius: 8px; font-size: 0.7rem; cursor: pointer; margin-top: 5px; width: 100%; color: #333; }
+
+        /* --- ส่วนที่เพิ่มใหม่: CSS สำหรับขยายรูป --- */
+        .img-modal {
+            display: none; position: fixed; z-index: 10000; padding-top: 60px; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+        }
+        .img-modal-content {
+            margin: auto; display: block; width: 80%; max-width: 400px;
+            border-radius: 15px; animation: zoomIn 0.3s;
+        }
+        @keyframes zoomIn { from {transform:scale(0)} to {transform:scale(1)} }
+        .img-modal-close {
+            position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <div id="dynamic-bg"></div>
 
+    <div id="qrModal" class="img-modal">
+        <span class="img-modal-close" onclick="closeImage()">&times;</span>
+        <img class="img-modal-content" id="expandedImg">
+        <p style="color: white; text-align: center; margin-top: 15px;">ກົດຄ້າງທີ່ຮູບເພື່ອບັນທຶກ</p>
+    </div>
+
     <div class="app-wrapper">
         <div id="welcome" style="height: 80dvh; display: flex; align-items: center; justify-content: center;">
-            <div class="card" style="background: rgba(214, 51, 132, 0.8);">
-                <h2 style="color:white; font-weight: 700;">You are Invited! 💌</h2>
+            <div class="card" style="background: rgba(214, 51, 132, 0.85); padding: 40px 20px;">
+                <h1 style="color:white; font-family: 'Dancing Script', cursive; font-size: 3.5rem; margin: 0 0 5px 0;">Mick & Ploy</h1>
+                <p style="color:white; font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">**********</p>
                 <p style="color:white; margin-bottom: 25px;">ຂໍຮຽນເຊີນທ່ານເຂົ້າຮ່ວມງານແຕ່ງງານ</p>
-                <button onclick="openCard()" style="padding: 18px 45px; background: white; color: var(--primary-pink); border: none; border-radius: 20px; font-size: 1.1rem; cursor: pointer; font-weight: 700;">ເປີດກາດ</button>
+                <button onclick="openCard()" style="padding: 18px 50px; background: white; color: var(--primary-pink); border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer; font-weight: 700;">ເປີດກາດ</button>
             </div>
         </div>
 
-        <div id="mainContent" class="main-content" style="display:none;">
+        <div id="mainContent" style="display:none;">
             <div class="card">
                 <div class="names-handwriting">Mick & Ploy</div>
                 
@@ -85,22 +105,17 @@
 
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166226/1_cle7zz.jpg"></div>
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166223/7_f6qpnb.jpg"></div>
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166223/10_isx6no.jpg"></div>
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166223/9_chncpj.jpg"></div>
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166222/8_dvc13d.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166226/5_wiohgj.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166222/4_nwyw5v.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166222/6_kodwbx.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166221/3_r1onqa.jpg"></div>
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772166221/2_rltoi9.jpg"></div>
                     </div>
                 </div>
 
                 <div class="info-section">
-                    <span class="section-title">👨‍👩‍👧‍👦 ຄອບຄົວ (Our Family)</span>
+                    <span class="section-title">ເຈົ້າພາບຝ່າຍຍິງ ແລະ ຝ່າຍຊາຍ</span>
                     <div class="family-grid">
                         <div>
                             <p style="font-weight:700; font-size:0.8rem; margin:0 0 5px 0; color:var(--primary-pink);">ຝ່າຍຊາຍ:</p>
@@ -126,21 +141,19 @@
                 </div>
 
                 <div class="info-section">
-                    <span class="section-title">📅 ກຳນົດການ & ສະຖານທີ່</span>
+                    <span class="section-title">ກຳນົດການ & ສະຖານທີ່</span>
                     <div class="agenda-item"><span>ວັນທີ:</span> <span>15 ຕຸລາ 2026</span></div>
+                    <div class="agenda-item"><span>ສະຖານທີ່ຈັດງານ:</span> <span>ໂຮງແຮມ.....</span></div>
                     <div class="agenda-item"><span>08:00:</span> <span>ພິທີແຫ່ເຂີຍ</span></div>
-                    <div class="agenda-item"><span>10:00:</span> <span>ພິທີບາສີສູ່ຂວັນ</span></div>
+                    <div class="agenda-item"><span>10:30:</span> <span>ພິທີບາສີສູ່ຂວັນ</span></div>
                     <div class="agenda-item"><span>18:00:</span> <span>ງານລ້ຽງສັງສັນ</span></div>
-                    
-                    <a href="https://maps.app.goo.gl/xxxx" target="_blank" class="btn-map">
-                        📍 ເປີດແຜນທີ່ Google Maps
-                    </a>
+                    <a href="https://maps.google.com" target="_blank" class="btn-map">ເປີດແຜນທີ່ງານ Google Maps</a>
                 </div>
 
                 <div class="rsvp-form" style="margin-top: 25px;">
                     <form id="rsvpForm">
                         <input type="text" name="Name" placeholder="ຊື່ຂອງທ່ານ" required>
-                        <textarea name="Blessing" placeholder="ຂຽນຄຳອວຍພອນ..." rows="3" required></textarea>
+                        <textarea name="Blessing" placeholder="ຂຽนຄຳອວຍພອນ..." rows="3" required></textarea>
                         <button type="submit" id="submitBtn" class="submit-btn">ສົ່ງຄຳອວຍພອນ ✨</button>
                     </form>
                 </div>
@@ -153,27 +166,17 @@
     </audio>
 
     <script>
-        // ตั้งเวลาวันแต่งงาน (แก้ไขวันที่ตรงนี้)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxLtB7FReQbp_Z45iJ3vgvKytsb6g-osU3nfOfL361qBekS5Jk3G3pYhipD9f9S8ZwT/exec'; 
+
         const weddingDate = new Date("OCT 15, 2026 08:00:00").getTime();
         
-        const x = setInterval(function() {
+        setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
-            
-            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById("days").innerText = d < 10 ? '0'+d : d;
-            document.getElementById("hours").innerText = h < 10 ? '0'+h : h;
-            document.getElementById("minutes").innerText = m < 10 ? '0'+m : m;
-            document.getElementById("seconds").innerText = s < 10 ? '0'+s : s;
-            
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("wedding-countdown").innerHTML = "<h3 style='color:#d63384'>Happy Wedding Day! ❤️</h3>";
-            }
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
         }, 1000);
 
         function openCard() {
@@ -192,32 +195,83 @@
             });
         }
 
+        // --- ฟังก์ชันขยายรูปที่เพิ่มใหม่ ---
+        function expandImage(src) {
+            document.getElementById('qrModal').style.display = "block";
+            document.getElementById('expandedImg').src = src;
+        }
+        function closeImage() {
+            document.getElementById('qrModal').style.display = "none";
+        }
+        // คลิกพื้นหลังเพื่อปิด
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('qrModal')) {
+                closeImage();
+            }
+        }
+
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                Swal.fire({ title: 'คัดลอกแล้ว!', text: text, icon: 'success', timer: 1500, showConfirmButton: false });
-            });
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            Swal.showValidationMessage(`ຄັດລອກ ${text} ສຳເລັດແລ້ວ!`);
+            setTimeout(() => { Swal.resetValidationMessage(); }, 1500);
         }
 
         document.getElementById('rsvpForm').addEventListener('submit', e => {
             e.preventDefault();
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            Swal.fire({
-                title: 'ສົ່ງສຳເລັດແລ້ວ! 🙏❤️',
-                html: `
-                    <div style="text-align:center;">
-                        <p>🎁 ສົ່ງຂອງຂວັນໃຫ້ຄູ່ບ່າວສາວ</p>
-                        <div style="display:flex; gap:10px; margin-top:10px;">
-                            <div style="flex:1">
-                                <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg" style="width:100%; border-radius:10px;">
-                                <button class="copy-btn" onclick="copyToClipboard('0000-000-000-000')">Copy Mick</button>
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "ກຳລັງສົ່ງ...";
+            btn.disabled = true;
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(e.target)})
+            .then(response => {
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                
+                Swal.fire({
+                    title: 'ບັນທືກຄຳອວຍພອນສຳເລັດແລ້ວ!',
+                    html: `
+                        <div style="text-align:center;">
+                            <p style="margin-bottom:10px;">🎁 ສົ່ງຂອງຂວັນໃຫ້ຄູ່ບ່າວສາວ</p>
+                            <p style="font-size:0.75rem; color:#666; margin-bottom:10px;">(ກົດທີ່ຮູບເພື່ອຂະຫຍາຍ)</p>
+                            <div style="display:flex; gap:10px; justify-content:center;">
+                                <div style="width:140px;">
+                                    <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg" 
+                                         onclick="expandImage(this.src)"
+                                         style="width:100%; border-radius:10px; font-size:1rem;  border:1px solid #eee; cursor:zoom-in;">
+                                    <button type="button" class="copy-btn" onclick="copyToClipboard('0000-000-000-000')">ເລກບັນຊີເຈົ້າບ່າວ</button>
+                                </div>
+                                <div style="width:140px;">
+                                    <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg" 
+                                         onclick="expandImage(this.src)"
+                                         style="width:100%; border-radius:10px; font-size:1rem; border:1px solid #eee; cursor:zoom-in;">
+                                    <button type="button" class="copy-btn" onclick="copyToClipboard('0000-000-000-111')">ເລກບັນຊີເຈົ້າບ່າວ</button>
+                                </div>
                             </div>
-                            <div style="flex:1">
-                                <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg" style="width:100%; border-radius:10px;">
-                                <button class="copy-btn" onclick="copyToClipboard('0000-000-000-111')">Copy Ploy</button>
-                            </div>
-                        </div>
-                    </div>`,
-                showConfirmButton: true, confirmButtonText: 'ຕົກລົງ', confirmButtonColor: '#d63384'
+                        </div>`,
+                    confirmButtonText: 'ຕົກລົງ', 
+                    confirmButtonColor: '#d63384'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const audio = document.getElementById('bgMusic');
+                        audio.pause();
+                        audio.currentTime = 0;
+                        document.getElementById('mainContent').style.display = 'none';
+                        document.getElementById('welcome').style.display = 'flex';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        e.target.reset();
+                        btn.innerText = "ສົ່ງຄຳອวยພອນ ✨";
+                        btn.disabled = false;
+                    }
+                });
+            })
+            .catch(error => {
+                btn.disabled = false;
+                btn.innerText = "ສົ່ງຄຳອວຍພອນ ✨";
+                Swal.fire('Error!', 'ບໍ່ສາມາດສົ່ງໄດ້', 'error');
             });
         });
     </script>

@@ -2,7 +2,7 @@
 <html lang="lo">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Mick & Ploy Wedding</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
@@ -21,94 +21,42 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: var(--main-font); }
+        body, html { margin: 0; padding: 0; width: 100%; min-height: 100dvh; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); background-attachment: fixed; overflow-x: hidden; }
 
-        body, html { 
-            margin: 0; padding: 0; width: 100%; min-height: 100dvh;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            background-attachment: fixed; overflow-x: hidden;
-        }
-
-        #dynamic-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background-size: cover; background-position: center;
-            transition: background-image 1.2s ease-in-out;
-            filter: blur(15px) brightness(0.6); transform: scale(1.1);
-        }
-
+        #dynamic-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center; transition: background-image 1.2s ease-in-out; filter: blur(15px) brightness(0.6); transform: scale(1.1); }
         .app-wrapper { width: 100%; max-width: 500px; margin: 0 auto; padding: 20px 15px; }
 
-        .card { 
-            width: 100%; padding: 20px;
-            background: var(--glass-bg); backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-glass);
-            border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px;
-            text-align: center;
-        }
+        .card { width: 100%; padding: 20px; background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-glass); border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; }
 
-        /* --- เอฟเฟกต์ชื่อ Mick & Ploy --- */
-        .names-handwriting { 
-            font-family: var(--name-font) !important; 
-            font-size: clamp(3.5rem, 14vw, 4.5rem);
-            margin: 10px 0; line-height: 1.2;
-            display: inline-block;
-            position: relative;
-            /* ไล่สีพื้นฐาน */
-            background: linear-gradient(to right, #d63384 20%, #ff99cc 40%, #ffffff 50%, #ff99cc 60%, #d63384 80%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* animation shine = ปาดแสง, heartbeat = เต้นตามจังหวะ */
-            animation: shine 5s linear infinite, heartbeat 1.5s ease-in-out infinite;
-        }
+        .names-handwriting { font-family: var(--name-font) !important; font-size: clamp(3.5rem, 14vw, 4.5rem); margin: 10px 0; line-height: 1.2; background: linear-gradient(to right, #d63384 20%, #ff99cc 40%, #ffffff 50%, #ff99cc 60%, #d63384 80%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite, heartbeat 1.5s ease-in-out infinite; }
 
-        /* Keyframes ปาดแสง */
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
+        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes heartbeat { 0% { transform: scale(1); } 14% { transform: scale(1.05); } 28% { transform: scale(1); } 42% { transform: scale(1.05); } 70% { transform: scale(1); } }
 
-        /* Keyframes เต้นตามจังหวะหัวใจ (Pulse) */
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.05); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.05); }
-            70% { transform: scale(1); }
-        }
-        /* --------------------------- */
-
-        .btn-open { 
-            padding: 18px 45px; background: var(--primary-pink); color: white; 
-            border: none; border-radius: 20px; font-size: 1.1rem; cursor: pointer; 
-            font-weight: 700; box-shadow: 0 8px 20px rgba(214, 51, 132, 0.3);
-        }
-
-        .main-content { display: none; animation: fadeIn 0.8s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .countdown-container { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .countdown-item { background: rgba(255,255,255,0.4); padding: 8px; border-radius: 10px; min-width: 55px; border: 1px solid rgba(255,255,255,0.5); }
+        .countdown-value { display: block; font-size: 1.2rem; font-weight: bold; color: var(--primary-pink); }
+        .countdown-label { font-size: 0.6rem; color: #666; text-transform: uppercase; }
 
         .swiper { width: 100%; margin: 15px 0; padding-bottom: 20px; }
         .swiper-slide { width: 80%; max-width: 260px; aspect-ratio: 3/4; border-radius: 20px; overflow: hidden; opacity: 0.4; transition: 0.3s; }
         .swiper-slide-active { opacity: 1; }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 
-        .info-section {
-            margin-top: 15px; background: rgba(255, 255, 255, 0.2);
-            padding: 15px; border-radius: 20px; border: 1px solid var(--border-glass);
-        }
+        .info-section { margin-top: 15px; background: rgba(255, 255, 255, 0.2); padding: 15px; border-radius: 20px; border: 1px solid var(--border-glass); }
         .section-title { color: var(--primary-pink); font-weight: 700; font-size: 1rem; margin-bottom: 10px; display: block; }
         .agenda-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+
+        /* Family Grid Styles */
         .family-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left; }
         .family-list { padding: 0; margin: 0; list-style: none; font-size: 0.8rem; }
-        .family-list li { margin-bottom: 4px; border-left: 2px solid var(--primary-pink); padding-left: 6px; }
+        .family-list li { margin-bottom: 4px; border-left: 2px solid var(--primary-pink); padding-left: 6px; color: #333; }
 
-        .rsvp-form input, .rsvp-form textarea {
-            width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 12px; 
-            border: 1px solid var(--border-glass); background: rgba(255,255,255,0.5); outline: none;
-        }
-        .submit-btn {
-            width: 100%; background: var(--primary-pink); color: white; 
-            padding: 15px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer;
-        }
+        .btn-map { display: block; background: #4285F4; color: white; text-decoration: none; padding: 12px; border-radius: 15px; font-weight: bold; font-size: 0.9rem; margin-top: 15px; box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3); transition: 0.2s; }
+        
+        .rsvp-form input, .rsvp-form textarea { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 12px; border: 1px solid var(--border-glass); background: rgba(255,255,255,0.5); outline: none; font-size: 16px; }
+        .submit-btn { width: 100%; background: var(--primary-pink); color: white; padding: 15px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; }
+        .copy-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 5px 10px; border-radius: 8px; font-size: 0.7rem; cursor: pointer; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -117,28 +65,29 @@
 
     <div class="app-wrapper">
         <div id="welcome" style="height: 80dvh; display: flex; align-items: center; justify-content: center;">
-            <div class="card">
+            <div class="card" style="background: rgba(214, 51, 132, 0.8);">
                 <h2 style="color:white; font-weight: 700;">You are Invited! 💌</h2>
                 <p style="color:white; margin-bottom: 25px;">ຂໍຮຽນເຊີນທ່ານເຂົ້າຮ່ວມງານແຕ່ງງານ</p>
-                <button class="btn-open" onclick="openCard()">ແຕະເພື່ອເປີດກາດ</button>
+                <button onclick="openCard()" style="padding: 18px 45px; background: white; color: var(--primary-pink); border: none; border-radius: 20px; font-size: 1.1rem; cursor: pointer; font-weight: 700;">ເປີດກາດ</button>
             </div>
         </div>
 
-        <div id="mainContent" class="main-content">
+        <div id="mainContent" class="main-content" style="display:none;">
             <div class="card">
                 <div class="names-handwriting">Mick & Ploy</div>
-                <p style="color: var(--primary-pink); font-weight: 700;">26 February 2026</p>
+                
+                <div id="wedding-countdown" class="countdown-container">
+                    <div class="countdown-item"><span id="days" class="countdown-value">00</span><span class="countdown-label">ວັນ</span></div>
+                    <div class="countdown-item"><span id="hours" class="countdown-value">00</span><span class="countdown-label">ຊມ</span></div>
+                    <div class="countdown-item"><span id="minutes" class="countdown-value">00</span><span class="countdown-label">ນາທີ</span></div>
+                    <div class="countdown-item"><span id="seconds" class="countdown-value">00</span><span class="countdown-label">ວິ</span></div>
+                </div>
 
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149729/cld-sample.jpg"></div>
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149730/cld-sample-3.jpg"></div>
                         <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149730/main-sample.png"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149728/samples/woman-on-a-football-field.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149724/samples/smile.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149718/samples/people/boy-snow-hoodie.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149722/samples/two-ladies.jpg"></div>
-                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149726/samples/man-portrait.jpg"></div>
                     </div>
                 </div>
 
@@ -146,31 +95,34 @@
                     <span class="section-title">👨‍👩‍👧‍👦 ຄອບຄົວ (Our Family)</span>
                     <div class="family-grid">
                         <div>
-                            <p style="font-weight:700; font-size:0.8rem; margin:0 0 5px 0;">ຝ່າຍຊາຍ:</p>
+                            <p style="font-weight:700; font-size:0.8rem; margin:0 0 5px 0; color:var(--primary-pink);">ຝ່າຍຊາຍ:</p>
                             <ul class="family-list">
-                                <li>ຍາດພີ່ນ້ອງຊາຍ 1</li>
-                                <li>ຍາດພີ່ນ້ອງຊາຍ 2</li>
+                                <li>ທ່ານ ຍາດພີ່ນ້ອງຊາຍ 1</li>
+                                <li>ທ່ານ ຍາດພີ່ນ້ອງຊາຍ 2</li>
                             </ul>
                         </div>
                         <div>
-                            <p style="font-weight:700; font-size:0.8rem; margin:0 0 5px 0;">ຝ່າຍຍິງ:</p>
+                            <p style="font-weight:700; font-size:0.8rem; margin:0 0 5px 0; color:var(--primary-pink);">ຝ່າຍຍິງ:</p>
                             <ul class="family-list">
-                                <li>ຍາດພີ່ນ້ອງຍິງ 1</li>
-                                <li>ຍາດພີ່ນ້ອງຍິງ 2</li>
+                                <li>ທ່ານ ຍາດພີ່ນ້ອງຍິງ 1</li>
+                                <li>ທ່ານ ຍາດພີ່ນ້ອງຍິງ 2</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="info-section">
-                    <span class="section-title">📅 ກຳນົດການ (Agenda)</span>
-                    <div class="agenda-item"><span>08:00</span> <span>ແຫ່ເຂີย</span></div>
-                    <div class="agenda-item"><span>09:00</span> <span>ບາສີສູ່ຂວັນ</span></div>
-                    <div class="agenda-item"><span>11:30</span> <span>ຮ່ວມຮັບປະທານອາຫານ</span></div>
+                    <span class="section-title">📅 ກຳນົດການ & ສະຖານທີ່</span>
+                    <div class="agenda-item"><span>ວັນທີ:</span> <span>26 ກຸມພາ 2026</span></div>
+                    <div class="agenda-item"><span>08:00:</span> <span>ພິທີແຫ່ເຂີຍ</span></div>
+                    <div class="agenda-item"><span>18:00:</span> <span>ງານລ້ຽງສັງສັນ</span></div>
+                    
+                    <a href="https://maps.app.goo.gl/xxxx" target="_blank" class="btn-map">
+                        📍 ເປີດແຜນທີ່ Google Maps
+                    </a>
                 </div>
 
-                <div class="rsvp-form" style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px;">
-                    <h3 style="color: var(--primary-pink); font-size: 1.1rem; margin-bottom: 15px;">✍️ ສົ່ງຄຳອວຍພອນ</h3>
+                <div class="rsvp-form" style="margin-top: 25px;">
                     <form id="rsvpForm">
                         <input type="text" name="Name" placeholder="ຊື່ຂອງທ່ານ" required>
                         <textarea name="Blessing" placeholder="ຂຽນຄຳອວຍພອນ..." rows="3" required></textarea>
@@ -186,83 +138,72 @@
     </audio>
 
     <script>
-        const music = document.getElementById('bgMusic');
-        const bgDiv = document.getElementById('dynamic-bg');
+        // ตั้งเวลาวันแต่งงาน (แก้ไขวันที่ตรงนี้)
+        const weddingDate = new Date("OCT 15, 2026 08:00:00").getTime();
+        
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerText = d < 10 ? '0'+d : d;
+            document.getElementById("hours").innerText = h < 10 ? '0'+h : h;
+            document.getElementById("minutes").innerText = m < 10 ? '0'+m : m;
+            document.getElementById("seconds").innerText = s < 10 ? '0'+s : s;
+            
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("wedding-countdown").innerHTML = "<h3 style='color:#d63384'>Happy Wedding Day! ❤️</h3>";
+            }
+        }, 1000);
 
         function openCard() {
             document.getElementById('welcome').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
-            music.play().catch(e => console.log("Music blocked"));
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(e => console.log("Audio play blocked"));
             
-            // ตั้งค่า Swiper ให้เลื่อนเองทุกๆ 1.5 วินาที
-            const swiper = new Swiper('.mySwiper', { 
-                effect: 'coverflow',
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: 'auto',
-                loop: true,
-                speed: 800,
-                autoplay: { 
-                    delay: 1500, // เลื่อนทุกๆ 1.5 วินาที
-                    disableOnInteraction: false 
-                },
-                coverflowEffect: {
-                    rotate: 20,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows: false,
-                },
-                on: {
-                    init: function() { updateBackground(this); },
-                    slideChange: function() { updateBackground(this); }
-                }
+            new Swiper('.mySwiper', { 
+                effect: 'coverflow', centeredSlides: true, slidesPerView: 'auto', loop: true,
+                autoplay: { delay: 1500, disableOnInteraction: false },
+                on: { slideChange: function() { 
+                    const img = this.slides[this.activeIndex].querySelector('img');
+                    if(img) document.getElementById('dynamic-bg').style.backgroundImage = `url('${img.src}')`;
+                }}
             });
-
-            setTimeout(() => {
-                swiper.update();
-            }, 300);
         }
 
-        function updateBackground(instance) {
-            const activeSlide = instance.slides[instance.activeIndex];
-            const img = activeSlide.querySelector('img');
-            if (img) { bgDiv.style.backgroundImage = `url('${img.src}')`; }
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                Swal.fire({ title: 'คัดลอกแล้ว!', text: text, icon: 'success', timer: 1500, showConfirmButton: false });
+            });
         }
 
         document.getElementById('rsvpForm').addEventListener('submit', e => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            btn.innerHTML = "ກຳລັງສົ່ງ...";
-            btn.disabled = true;
-
-            setTimeout(() => {
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-                Swal.fire({
-                    title: 'ສົ່ງສຳເລັດແລ້ວ! 🙏❤️',
-                    html: `
-                        <div style="text-align:center;">
-                            <p style="font-size: 0.9rem; color: #666;">ຂໍຂອບໃຈສຳລັບຄຳອວຍພອນ</p>
-                            <h3 style="color:#d63384; font-size:1.1rem; margin: 15px 0;">🎁 ຮ່ວມອວຍພອນບ່າວສາວ</h3>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-                                <div>
-                                    <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg" style="width:100%; border-radius:10px;">
-                                    <p style="font-size:0.7rem;">ເຈົ້າບ່າວ</p>
-                                </div>
-                                <div>
-                                    <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg" style="width:100%; border-radius:10px;">
-                                    <p style="font-size:0.7rem;">ເຈົ້າສາວ</p>
-                                </div>
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            Swal.fire({
+                title: 'ສົ່ງສຳເລັດແລ້ວ! 🙏❤️',
+                html: `
+                    <div style="text-align:center;">
+                        <p>🎁 ສົ່ງຂອງຂວັນໃຫ້ຄູ່ບ່າວສາວ</p>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <div style="flex:1">
+                                <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg" style="width:100%; border-radius:10px;">
+                                <button class="copy-btn" onclick="copyToClipboard('0000-000-000-000')">Copy Mick</button>
                             </div>
-                            <button onclick="Swal.close()" style="width:100%; background:#d63384; color:white; padding:12px; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">✅ ຕົກລົງ</button>
+                            <div style="flex:1">
+                                <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg" style="width:100%; border-radius:10px;">
+                                <button class="copy-btn" onclick="copyToClipboard('0000-000-000-111')">Copy Ploy</button>
+                            </div>
                         </div>
-                    `,
-                    showConfirmButton: false, allowOutsideClick: false
-                });
-                document.getElementById('rsvpForm').reset();
-                btn.innerHTML = "ສົ່ງຄຳອວຍພອນ ✨";
-                btn.disabled = false;
-            }, 1500);
+                    </div>`,
+                showConfirmButton: true, confirmButtonText: 'ຕົກລົງ', confirmButtonColor: '#d63384'
+            });
         });
     </script>
 </body>

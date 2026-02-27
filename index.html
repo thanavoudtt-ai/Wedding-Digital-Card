@@ -1,224 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="lo">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation - Glass Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Mick & Ploy Wedding</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;500;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <style>
-        body { 
-            font-family: 'Noto Sans Lao', sans-serif; 
-            text-align: center; 
+        :root {
+            --primary-pink: #d63384;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --border-glass: rgba(255, 255, 255, 0.5);
+            /* กำหนดตัวแปรฟอนต์หลัก */
+            --main-font: 'Noto Sans Lao', sans-serif;
+            --name-font: 'Dancing Script', cursive;
+        }
+
+        /* รีเซ็ตค่าพื้นฐานให้เป็น Noto Sans Lao ทั้งหมด */
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+            font-family: var(--main-font); 
+        }
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; min-height: 100dvh;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             background-attachment: fixed;
-            color: #4a4a4a; 
-            padding: 20px;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             overflow-x: hidden;
-        }
-        
-        .card { 
-            max-width: 400px; 
-            width: 90%;
-            margin: 20px auto; 
-            padding: 25px; 
-            background: rgba(255, 255, 255, 0.35); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 35px; 
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        }
-
-        /* ปรับแต่งส่วนชื่อเจ้าบ่าว-เจ้าสาวให้เป็นลายมือ */
-        .names-handwriting { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 4rem; 
-            color: #d63384; 
-            margin: 10px 0;
-            font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
-            letter-spacing: 1px;
-        }
-
-        .btn-open { 
-            padding: 15px 45px; 
-            background: rgba(214, 51, 132, 0.85);
-            color: white; 
-            border: none; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            font-size: 18px;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
-            font-family: 'Noto Sans Lao', sans-serif; 
-        }
-
-        .main-content { 
-            display: none; 
-            animation: slideUp 1.2s ease-out; 
-        }
-
-        @keyframes slideUp { 
-            from { opacity: 0; transform: translateY(60px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-
-        .swiper {
-            width: 100%;
-            padding-top: 20px;
-            padding-bottom: 40px;
-        }
-
-        .swiper-slide {
-            width: 270px; 
-            height: 370px;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .map-btn {
-            background: rgba(74, 74, 74, 0.75);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 15px;
-            text-decoration: none;
-            display: inline-block;
-            margin: 15px 0;
-            font-size: 0.9rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .rsvp-section {
-            background: rgba(255, 255, 255, 0.25); 
-            padding: 20px; 
-            border-radius: 25px; 
-            margin-top: 25px; 
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        input, textarea {
-            width: 88%; 
-            padding: 12px; 
-            margin-bottom: 12px; 
-            border-radius: 15px; 
-            border: 1px solid rgba(255, 255, 255, 0.4); 
-            background: rgba(255, 255, 255, 0.4);
-            font-family: 'Noto Sans Lao', sans-serif;
-            outline: none;
             color: #4a4a4a;
         }
 
-        .submit-btn {
-            background: #d63384; 
-            color: white; 
-            padding: 12px 40px; 
-            border: none; 
-            border-radius: 18px; 
-            cursor: pointer; 
-            font-size: 16px;
-            font-family: 'Noto Sans Lao', sans-serif;
-            box-shadow: 0 4px 10px rgba(214, 51, 132, 0.2);
+        /* บังคับฟอนต์ให้ Popup ของ SweetAlert2 */
+        .swal2-popup, .swal2-title, .swal2-html-container, .swal2-confirm {
+            font-family: var(--main-font) !important;
+        }
+
+        .app-wrapper {
+            width: 100%; max-width: 500px; margin: 0 auto;
+            min-height: 100dvh; display: flex; flex-direction: column; padding: 20px 15px;
+        }
+
+        .card { 
+            width: 100%; padding: clamp(15px, 5vw, 25px);
+            background: var(--glass-bg); backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-glass);
+            border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px;
+        }
+
+        /* ยกเว้นส่วนชื่อเจ้าบ่าวเจ้าสาวให้เป็นลายมือ */
+        .names-handwriting { 
+            font-family: var(--name-font) !important; 
+            font-size: clamp(3.5rem, 14vw, 4.5rem);
+            color: var(--primary-pink); margin: 10px 0; line-height: 1.2;
+        }
+
+        .btn-open { 
+            padding: 18px 45px; background: var(--primary-pink);
+            color: white; border: none; border-radius: 20px; 
+            font-size: 1.1rem; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.3);
             transition: transform 0.2s;
         }
-        
-        .submit-btn:active { transform: scale(0.95); }
+        .btn-open:active { transform: scale(0.95); }
 
-        .qr-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 15px;
+        .main-content { display: none; animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .swiper { width: 100%; margin: 15px 0; }
+        .swiper-slide { 
+            width: 80%; max-width: 280px; aspect-ratio: 3/4;
+            border-radius: 20px; overflow: hidden; 
+        }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .map-btn {
+            background: rgba(0, 0, 0, 0.6); color: white;
+            padding: 12px 25px; border-radius: 15px; text-decoration: none;
+            font-size: 0.9rem; display: inline-block; margin: 15px 0;
         }
 
-        .qr-item {
-            flex: 1;
-            min-width: 140px;
-            max-width: 160px;
-            background: rgba(255,255,255,0.25);
-            padding: 12px;
-            border-radius: 25px;
-            border: 1px solid rgba(255,255,255,0.3);
+        .qr-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        .qr-mini-card {
+            background: rgba(255,255,255,0.4); padding: 10px; border-radius: 20px; 
+            cursor: pointer; border: 1px solid var(--border-glass); text-align: center;
         }
+        .qr-mini-card img { width: 100%; border-radius: 12px; display: block; }
+        .qr-mini-card p { font-size: 0.8rem; margin: 8px 0 0 0; font-weight: 700; color: var(--primary-pink); }
 
-        .qr-item img {
-            width: 100%;
-            border-radius: 18px;
-            border: 3px solid rgba(255,255,255,0.5);
+        .rsvp-form input, .rsvp-form textarea {
+            width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 15px; 
+            border: 1px solid var(--border-glass); background: rgba(255,255,255,0.5);
+            outline: none; font-size: 1rem;
+        }
+        .submit-btn {
+            width: 100%; background: var(--primary-pink); color: white; 
+            padding: 15px; border: none; border-radius: 18px; 
+            font-size: 1rem; font-weight: bold; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div id="welcome" style="margin-top: 150px;">
-        <div class="card" style="background: rgba(255,255,255,0.15);">
-            <h2 style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.15);">You are Invited! 💌</h2>
-            <p style="color: #fff; font-weight: 300;">ຂໍຮຽນເຊີນທ່ານເຂົ້າຮ່ວມງານແຕ່ງງານ</p>
-            <button class="btn-open" onclick="openCard()">ແຕະເພື່ອເປີດກາດ</button>
+    <div class="app-wrapper">
+        <div id="welcome" style="flex: 1; display: flex; align-items: center; justify-content: center;">
+            <div class="card" style="text-align: center;">
+                <h2 style="color:white; text-shadow: 0 2px 8px rgba(0,0,0,0.1);">You are Invited! 💌</h2>
+                <p style="color:white; margin-bottom: 25px; font-weight: 300;">ຂໍຮຽນເຊີນທ່ານເຂົ້າຮ່ວມງານແຕ່ງງານ</p>
+                <button class="btn-open" onclick="openCard()">ແຕະເພື່ອເປີດກາດ</button>
+            </div>
         </div>
-    </div>
 
-    <div id="mainContent" class="main-content card">
-        <div class="names-handwriting">Mick & Ploy</div>
-        <p style="font-size: 1.2rem; font-weight: 500; color: #d63384;">26 February 2026</p>
-        
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149984/nature-landscape-skytiful-outdoor-field-background-agriculture-summer-travel-asia-sunset-water-rural_okq4wc.jpg" alt="Photo 1"></div>
-                <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772150263/vibrant-red-light-trails-creating-dynamic-patterns-dark-background-generative-ai_iznsua.jpg" alt="Photo 2"></div>
-                <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772150409/view-delicious-food-reunion-dinner-anime-style_pxrino.jpg" alt="Photo 3"></div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
-        
-        <p style="margin-top: 10px; font-weight: bold;">📍 ສະຖານທີ່: ໂຮງແຮມ ແກຣນ ໂຮເທວ</p>
-        <a href="https://maps.google.com" target="_blank" class="map-btn">ເປີດແຜນທີ່ Google Maps</a>
-        
-        <div class="rsvp-section">
-            <h3 style="color: #d63384; margin-top: 0; font-size: 1.1rem;">✍️ ຢືນຢັນການຮ່ວມງານ</h3>
-            <form id="rsvpForm">
-                <input type="text" name="Name" placeholder="ຊື່ ແລະ ນາມສະກຸນ" required>
-                <input type="number" name="GuestCount" placeholder="ຈຳນວນຜູ້ຕິດຕາມ (ຄົນ)" min="0" required>
-                <textarea name="Blessing" placeholder="ຂຽນຄຳອວຍພອນໃຫ້ຄູ່ສົມລົດ..." rows="3"></textarea>
-                <button type="submit" id="submitBtn" class="submit-btn">ສົ່ງຄຳອวยພອນ ✨</button>
-            </form>
-            <div id="responseMsg" style="display:none; color: #d63384; margin-top: 15px; font-weight: bold;">
-                ສົ່ງຂໍ້ມູນສຳເລັດແລ້ວ, ຂໍຂອບໃຈ! 🙏❤️
-            </div>
-        </div>
-        
-        <h3 style="margin-top: 30px; font-size: 1.1rem;">ຮ່ວມສະແດງຄວາມຍິນດີ</h3>
-        
-        <div class="qr-container">
-            <div class="qr-item">
-                <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg" alt="QR เจ้าบ่าว">
-                <p style="font-size: 0.8rem; margin-top: 8px; font-weight: 500;">ບັນຊີ ເຈົ້າບ່າວ</p>
-            </div>
-            <div class="qr-item">
-                <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg" alt="QR เจ้าสาว">
-                <p style="font-size: 0.8rem; margin-top: 8px; font-weight: 500;">ບັນຊີ ເຈົ້າສາວ</p>
+        <div id="mainContent" class="main-content">
+            <div class="card" style="text-align: center;">
+                <div class="names-handwriting">Mick & Ploy</div>
+                <p style="color: var(--primary-pink); font-weight: 700; font-size: 1.2rem; margin-top: -5px;">26 February 2026</p>
+                
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772149984/nature-landscape-skytiful-outdoor-field-background-agriculture-summer-travel-asia-sunset-water-rural_okq4wc.jpg"></div>
+                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772150263/vibrant-red-light-trails-creating-dynamic-patterns-dark-background-generative-ai_iznsua.jpg"></div>
+                        <div class="swiper-slide"><img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772150409/view-delicious-food-reunion-dinner-anime-style_pxrino.jpg"></div>
+                    </div>
+                </div>
+
+                <p style="font-weight: 700; margin-top: 20px;">📍 ໂຮງແຮມ ແກຣນ ໂຮເທວ</p>
+                <a href="https://maps.google.com" target="_blank" class="map-btn">📍 ເປີດແຜນທີ່ Maps</a>
+
+                <div class="rsvp-form" style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px;">
+                    <h3 style="color: var(--primary-pink); font-size: 1.1rem; margin-bottom: 15px; font-weight: 700;">✍️ ຢືນຢັນການຮ່ວມງານ</h3>
+                    <form id="rsvpForm">
+                        <input type="text" name="Name" placeholder="ຊື່ ແລະ ນາມສະກຸນ" required>
+                        <input type="number" name="GuestCount" placeholder="ຈຳນວນຜູ້ຕິດຕາມ" required>
+                        <textarea name="Blessing" placeholder="ຂຽນຄຳອວຍພອນ..." rows="3"></textarea>
+                        <button type="submit" id="submitBtn" class="submit-btn">ສົ່ງຄຳອວຍພອນ ✨</button>
+                    </form>
+                </div>
+
+                <h3 style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8; font-weight: 500;">ຮ່ວມສະແດງຄວາມຍິນດີ (ກົດເພື່ອເບິ່ງ QR)</h3>
+                <div class="qr-grid">
+                    <div class="qr-mini-card" onclick="showQR('https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg', 'ເຈົ້າບ່າວ')">
+                        <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg">
+                        <p>ເຈົ້າບ່າວ</p>
+                    </div>
+                    <div class="qr-mini-card" onclick="showQR('https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg', 'ເຈົ້າສາວ')">
+                        <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg">
+                        <p>ເຈົ້າສາວ</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <p style="font-size: 0.75rem; color: #777; margin-top: 15px;">ສະແກນເພື່ອໂອນເຂົ້າບັນຊີເຈົ້າພາບ</p>
     </div>
 
     <audio id="bgMusic" loop>
@@ -226,27 +161,29 @@
     </audio>
 
     <script>
+        const music = document.getElementById('bgMusic');
+
         function openCard() {
             document.getElementById('welcome').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
-            var audio = document.getElementById('bgMusic');
-            audio.play();
+            music.play().catch(e => console.log("Music play blocked"));
+            
+            new Swiper('.swiper', {
+                effect: 'coverflow', centeredSlides: true, slidesPerView: 'auto', loop: true,
+                coverflowEffect: { rotate: 20, stretch: 0, depth: 100, modifier: 1, slideShadows: false },
+                autoplay: { delay: 3000 },
+            });
+        }
 
-            const swiper = new Swiper('.swiper', {
-                effect: 'coverflow',
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: 'auto',
-                loop: true,
-                coverflowEffect: {
-                    rotate: 25,
-                    stretch: 0,
-                    depth: 150,
-                    modifier: 1,
-                    slideShadows: false,
-                },
-                autoplay: { delay: 3000, disableOnInteraction: false },
-                pagination: { el: '.swiper-pagination', clickable: true },
+        function showQR(url, name) {
+            Swal.fire({
+                title: 'ບັນຊີ ' + name,
+                imageUrl: url,
+                imageWidth: 280,
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: '#fff',
+                backdrop: `rgba(0,0,0,0.5) blur(4px)`
             });
         }
 
@@ -258,13 +195,32 @@
             e.preventDefault();
             btn.innerHTML = "ກຳລັງສົ່ງ...";
             btn.disabled = true;
+
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                 .then(response => {
-                    btn.style.display = 'none';
-                    document.getElementById('responseMsg').style.display = 'block';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'ສົ່ງສຳເລັດແລ້ວ!',
+                        text: 'ຂໍຂອບໃຈສຳລັບຄຳອວຍພອນ 🙏❤️',
+                        confirmButtonText: 'ຕົກລົງ',
+                        confirmButtonColor: '#d63384',
+                    }).then(() => {
+                        music.pause();
+                        document.querySelector('.app-wrapper').innerHTML = `
+                            <div class="card" style="margin: 50% auto 0; text-align:center; animation: fadeIn 1s;">
+                                <h2 style="color:#d63384; font-weight:700;">ຂອບໃຈຫຼາຍໆ! 💌</h2>
+                                <p style="font-weight:500;">ແລ້ວພົບກັນໃນງານເດີ 🙏</p>
+                                <button onclick="location.reload()" class="map-btn">ເປີດໃໝ່</button>
+                            </div>`;
+                    });
                 })
                 .catch(error => {
-                    alert('ເກີດຂໍ້ຜິດພາດ');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ຜິດພາດ',
+                        text: 'ກະລຸນາລອງໃໝ່ອີກຄັ້ງ',
+                        confirmButtonText: 'ຕົກລົງ'
+                    });
                     btn.innerHTML = "ສົ່ງຄຳອວຍພອນ ✨";
                     btn.disabled = false;
                 });

@@ -13,30 +13,29 @@
     <style>
         :root {
             --primary-pink: #d63384;
+            --bcel-blue: #0055a4;
             --glass-bg: rgba(255, 255, 255, 0.4);
             --border-glass: rgba(255, 255, 255, 0.5);
-            /* กำหนดตัวแปรฟอนต์หลัก */
             --main-font: 'Noto Sans Lao', sans-serif;
             --name-font: 'Dancing Script', cursive;
         }
 
-        /* รีเซ็ตค่าพื้นฐานให้เป็น Noto Sans Lao ทั้งหมด */
+        /* ตั้งค่าฟอนต์ Noto Sans Lao เป็นค่าเริ่มต้นทั้งหมด */
         * { 
             box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; 
             font-family: var(--main-font); 
         }
 
         body, html { 
             margin: 0; padding: 0; width: 100%; min-height: 100dvh;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            background-attachment: fixed;
-            overflow-x: hidden;
+            background-attachment: fixed; overflow-x: hidden;
             color: #4a4a4a;
         }
 
-        /* บังคับฟอนต์ให้ Popup ของ SweetAlert2 */
-        .swal2-popup, .swal2-title, .swal2-html-container, .swal2-confirm {
+        /* บังคับฟอนต์ให้ SweetAlert2 Popup ทั้งหมด */
+        .swal2-popup, .swal2-title, .swal2-html-container, .swal2-confirm, .swal2-content {
             font-family: var(--main-font) !important;
         }
 
@@ -52,17 +51,17 @@
             border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px;
         }
 
-        /* ยกเว้นส่วนชื่อเจ้าบ่าวเจ้าสาวให้เป็นลายมือ */
+        /* ฟอนต์ลายมือเฉพาะชื่อเจ้าบ่าวเจ้าสาว */
         .names-handwriting { 
             font-family: var(--name-font) !important; 
             font-size: clamp(3.5rem, 14vw, 4.5rem);
-            color: var(--primary-pink); margin: 10px 0; line-height: 1.2;
+            color: var(--primary-pink); margin: 10px 0; line-height: 1.2; text-align: center;
         }
 
         .btn-open { 
             padding: 18px 45px; background: var(--primary-pink);
             color: white; border: none; border-radius: 20px; 
-            font-size: 1.1rem; cursor: pointer;
+            font-size: 1.1rem; cursor: pointer; font-weight: 700;
             box-shadow: 0 8px 20px rgba(214, 51, 132, 0.3);
             transition: transform 0.2s;
         }
@@ -71,9 +70,10 @@
         .main-content { display: none; animation: fadeIn 0.8s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* สไลเดอร์รูปภาพ */
         .swiper { width: 100%; margin: 15px 0; }
         .swiper-slide { 
-            width: 80%; max-width: 280px; aspect-ratio: 3/4;
+            width: 80%; max-width: 280px; aspect-ratio: 3/4; 
             border-radius: 20px; overflow: hidden; 
         }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
@@ -82,8 +82,10 @@
             background: rgba(0, 0, 0, 0.6); color: white;
             padding: 12px 25px; border-radius: 15px; text-decoration: none;
             font-size: 0.9rem; display: inline-block; margin: 15px 0;
+            font-weight: 500;
         }
 
+        /* ระบบ QR Grid */
         .qr-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
         .qr-mini-card {
             background: rgba(255,255,255,0.4); padding: 10px; border-radius: 20px; 
@@ -92,6 +94,15 @@
         .qr-mini-card img { width: 100%; border-radius: 12px; display: block; }
         .qr-mini-card p { font-size: 0.8rem; margin: 8px 0 0 0; font-weight: 700; color: var(--primary-pink); }
 
+        /* ปุ่ม BCEL ใน Popup */
+        .bcel-btn {
+            display: block; background: var(--bcel-blue); color: white !important; 
+            text-decoration: none; padding: 15px; border-radius: 15px; 
+            font-weight: bold; margin-top: 15px; font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,85,164,0.3);
+        }
+
+        /* แบบฟอร์ม */
         .rsvp-form input, .rsvp-form textarea {
             width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 15px; 
             border: 1px solid var(--border-glass); background: rgba(255,255,255,0.5);
@@ -109,7 +120,7 @@
     <div class="app-wrapper">
         <div id="welcome" style="flex: 1; display: flex; align-items: center; justify-content: center;">
             <div class="card" style="text-align: center;">
-                <h2 style="color:white; text-shadow: 0 2px 8px rgba(0,0,0,0.1);">You are Invited! 💌</h2>
+                <h2 style="color:white; text-shadow: 0 2px 8px rgba(0,0,0,0.1); font-weight: 700;">You are Invited! 💌</h2>
                 <p style="color:white; margin-bottom: 25px; font-weight: 300;">ຂໍຮຽນເຊີນທ່ານເຂົ້າຮ່ວມງານແຕ່ງງານ</p>
                 <button class="btn-open" onclick="openCard()">ແຕະເພື່ອເປີດກາດ</button>
             </div>
@@ -129,7 +140,7 @@
                 </div>
 
                 <p style="font-weight: 700; margin-top: 20px;">📍 ໂຮງແຮມ ແກຣນ ໂຮເທວ</p>
-                <a href="https://maps.app.goo.gl/XYh5o6ssyBtmWpba9" target="_blank" class="map-btn">📍 ເປີດແຜນທີ່ Maps</a>
+                <a href="https://maps.google.com" target="_blank" class="map-btn">📍 ເປີດແຜນທີ່ Maps</a>
 
                 <div class="rsvp-form" style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px;">
                     <h3 style="color: var(--primary-pink); font-size: 1.1rem; margin-bottom: 15px; font-weight: 700;">✍️ ຢືນຢັນການຮ່ວມງານ</h3>
@@ -143,11 +154,11 @@
 
                 <h3 style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8; font-weight: 500;">ຮ່ວມສະແດງຄວາມຍິນດີ (ກົດເພື່ອເບິ່ງ QR)</h3>
                 <div class="qr-grid">
-                    <div class="qr-mini-card" onclick="showQR('https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg', 'ເຈົ້າບ່າວ')">
+                    <div class="qr-mini-card" onclick="showQR('https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg', 'ເຈົ້າບ່າວ', '00020101021138670016A00526628466257701082771041802030010324HWAMWPTDTOECSGAKOAIJIZRM53034185802LA630447B1')">
                         <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/1_psyfaa.jpg">
                         <p>ເຈົ້າບ່າວ</p>
                     </div>
-                    <div class="qr-mini-card" onclick="showQR('https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg', 'ເຈົ້າສາວ')">
+                    <div class="qr-mini-card" onclick="showQR('https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg', 'ເຈົ້າສາວ', 'ໃສ່ລະຫັດEMVCoຂອງເຈົ້າສາວບ່ອນນີ້')">
                         <img src="https://res.cloudinary.com/do8l02aly/image/upload/v1772152062/2_gdpgum.jpg">
                         <p>ເຈົ້າສາວ</p>
                     </div>
@@ -166,8 +177,9 @@
         function openCard() {
             document.getElementById('welcome').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
-            music.play().catch(e => console.log("Music play blocked"));
+            music.play().catch(e => console.log("Music auto-play blocked by browser"));
             
+            // เริ่มต้นสไลเดอร์
             new Swiper('.swiper', {
                 effect: 'coverflow', centeredSlides: true, slidesPerView: 'auto', loop: true,
                 coverflowEffect: { rotate: 20, stretch: 0, depth: 100, modifier: 1, slideShadows: false },
@@ -175,18 +187,33 @@
             });
         }
 
-        function showQR(url, name) {
+        function showQR(imgUrl, name, qrData) {
+            // สร้าง Deep Link สำหรับเปิดแอป BCEL One
+            const deepLink = `bcelsv://onepay?qr=${qrData}`;
+
             Swal.fire({
                 title: 'ບັນຊີ ' + name,
-                imageUrl: url,
-                imageWidth: 280,
+                html: `
+                    <div style="text-align:center;">
+                        <img src="${imgUrl}" style="width:220px; border-radius:15px; margin-bottom:15px;">
+                        <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">ແຄັບຈໍເພື່ອສະແກນ ຫຼື ກົດປຸ່ມລຸ່ມນີ້</p>
+                        
+                        <a href="${deepLink}" class="bcel-btn">
+                            📲 ເປີດແອັບ BCEL One
+                        </a>
+                        
+                        <p style="font-size:0.7rem; color:#999; margin-top:15px;">
+                            (ໝາຍເຫດ: ປຸ່ມນີ້ໃຊ້ໄດ້ສະເພາະມືຖືທີ່ມີແອັບ BCEL One ເທົ່ານັ້ນ)
+                        </p>
+                    </div>
+                `,
                 showConfirmButton: false,
                 showCloseButton: true,
-                background: '#fff',
-                backdrop: `rgba(0,0,0,0.5) blur(4px)`
+                background: '#fff'
             });
         }
 
+        // ระบบส่งฟอร์มไป Google Sheets
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxLtB7FReQbp_Z45iJ3vgvKytsb6g-osU3nfOfL361qBekS5Jk3G3pYhipD9f9S8ZwT/exec';
         const form = document.getElementById('rsvpForm');
         const btn = document.getElementById('submitBtn');
